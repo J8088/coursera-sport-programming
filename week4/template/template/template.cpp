@@ -1,0 +1,68 @@
+#include <algorithm>
+#include <functional>
+#include <cmath>
+#include <limits>
+#include <cfloat>
+#include <cstdio>
+#include <iomanip>
+#include <ios>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <list>
+#include <map>
+#include <queue>
+#include <set>
+#include <stack>
+#include <vector>
+
+using namespace std;
+
+typedef int64_t I64;
+typedef vector<int> vi;
+typedef vector<bool> vb;
+typedef pair<int, int> pi;
+
+#define fr(i,a,b) for (int i = a; i <= b; i++)
+#define fr2(i,a,b) for (int i = a; i < b; i++)
+
+int n;
+string s, sc;
+vector<string> ans;
+
+void save_ans() {
+	ans.push_back(sc);
+}
+
+void brute_force(int i) {
+	if (i == n) {
+		save_ans();
+		return;
+	}
+
+	if (s[i] == '?') {
+		fr2(j, 0, 5) {
+			sc[i] = 'a' + j;
+			brute_force(i + 1);
+		}
+	} else {
+		brute_force(i + 1);
+	}
+}
+
+int main() {
+	ios_base::sync_with_stdio(false);
+
+	int num;
+	cin >> s >> num;
+
+	n = s.length();
+
+	sc = s;
+	brute_force(0);
+
+	cout << ans[num - 1] << "\n";
+
+	return 0;
+}
